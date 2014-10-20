@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Easy clock module.
+ *
+ * @category Module
+ * @package  Easy_Clock
+ * @author   boris_t <boris@talovikov.ru>
+ * @license  http://opensource.org/licenses/GPL-2.0 GPL 2.0
+ * @see      https://www.drupal.org/node/876250
+ */
+
+define('EASY_CLOCK_JS', 'sites/all/libraries/jQuery-Clock-Plugin/jqClock.min.js');
+
+/**
+ * Render clock.
+ *
+ * @return string html
+ */
+function easy_clock_render() {
+
+  global $language;
+  $vars = array(
+    'utctime' => time() * 1000,
+    'langSet' => $language->language,
+  );
+  $opt = array(
+    'type' => 'file',
+    'scope' => 'footer',
+  );
+  $path_to_me = drupal_get_path('module', 'easy_clock');
+
+  drupal_add_js(array('easy_clock' => $vars), 'setting');
+  drupal_add_js(EASY_CLOCK_JS, $opt);
+  drupal_add_js("${path_to_me}/easy_clock.js", $opt);
+
+  return '<span id="easy-clock"></span>';
+}
+
+/**
+ * Implement template_preprocess_page().
+ *
+ * @param array $vars variables for page.tpl.php
+ *
+ * @return none
+ *
+ * @see https://api.drupal.org/api/drupal/includes!theme.inc/function/template_preprocess_page/7
+ */
+function easy_clock_preprocess_page(&$vars) {
+  $vars['secondary_menu'] = array('clock' => array(
+    'title' => easy_clock_render(),
+    'html' => TRUE,
+  )) + $vars['secondary_menu'];
+}

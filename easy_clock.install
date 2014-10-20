@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Install file.
+ *
+ * @category Module
+ * @package  Easy_Clock
+ * @author   boris_t <boris@talovikov.ru>
+ * @license  http://opensource.org/licenses/GPL-2.0 GPL 2.0
+ * @see      https://www.drupal.org/node/876250
+ */
+
+/**
+ * Implements hook_requirements().
+ *
+ * @see https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_requirements/7
+ *
+ * @param string $phase the phase in which requirements are checked
+ *
+ * @return array associative array where the keys are arbitrary but must be
+ * unique
+ */
+function easy_clock_requirements($phase) {
+  if($phase === 'install' || $phase === 'update' || $phase === 'runtime') {
+    $requirements['easy_clock'] = array(
+      'title' => '<a href="https://github.com/6RUN0/jQuery-Clock-Plugin">jQuery Clock Plugin (fork)</a>',
+      'value' => t('Exists'),
+      'description' => '',
+      'severity' => REQUIREMENT_OK,
+    );
+    $js = DRUPAL_ROOT . '/' . EASY_CLOCK_JS;
+    if(!file_exists($js)) {
+      $requirements['easy_clock']['value'] = t('File "<em>!js</em>" not found.', array('!js' => $js));
+      $requirements['easy_clock']['severity'] = REQUIREMENT_ERROR;
+    }
+    return $requirements;
+  }
+}
