@@ -28,7 +28,7 @@ function easy_clock_requirements($phase) {
       'description' => '',
       'severity' => REQUIREMENT_OK,
     );
-    $js = DRUPAL_ROOT . '/' . EASY_CLOCK_JS;
+    $js = DRUPAL_ROOT . '/sites/all/libraries/jQuery-Clock-Plugin/jqClock.min.js';
     if(!file_exists($js)) {
       $requirements['easy_clock']['value'] = t('File "<em>!js</em>" not found.', array('!js' => $js));
       $requirements['easy_clock']['severity'] = REQUIREMENT_ERROR;

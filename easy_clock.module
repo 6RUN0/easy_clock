@@ -10,8 +10,6 @@
  * @see      https://www.drupal.org/node/876250
  */
 
-define('EASY_CLOCK_JS', 'sites/all/libraries/jQuery-Clock-Plugin/jqClock.min.js');
-
 /**
  * Render clock.
  *
@@ -31,7 +29,7 @@ function easy_clock_render() {
   $path_to_me = drupal_get_path('module', 'easy_clock');
 
   drupal_add_js(array('easy_clock' => $vars), 'setting');
-  drupal_add_js(EASY_CLOCK_JS, $opt);
+  drupal_add_js('sites/all/libraries/jQuery-Clock-Plugin/jqClock.min.js', $opt);
   drupal_add_js("${path_to_me}/easy_clock.js", $opt);
 
   return '<span id="easy-clock"></span>';
